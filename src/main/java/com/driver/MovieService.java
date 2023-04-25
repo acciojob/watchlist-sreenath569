@@ -1,29 +1,41 @@
 package com.driver;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class MovieService {
 
-    MovieRepository movieRepository = new MovieRepository();
-    public Movie addMovie(Movie movie){
+    @Autowired
+    MovieRepository movieRepository;
+
+    public void addMovie(Movie movie){
         movieRepository.addMovie(movie);
-        return movie;
     }
 
-    public Director addDirector(Director director){
+    public void addDirector(Director director){
         movieRepository.addDirector(director);
-        return director;
     }
 
     public void addMovieDirectorPair(String movieName, String directorName){
-
-        if(movieRepository.movieNameToMovie.containsKey(movieName) && movieRepository.directorNameToDirector.containsKey(directorName)){
+        if(movieRepository.isMoviePresent(movieName) && movieRepository.isDirectorPresent(directorName)){
             movieRepository.addMovieDirectorPair(movieName, directorName);
         }
     }
-//
-//    public Movie getMovieByName(String movieName){
-//        return movieRepository.getMovieByName(movieName);
-//    }
+
+    public Movie getMovieByName(String movieName){
+        return movieRepository.getMovieByName(movieName);
+    }
+
+    public Director getDirectorByName(String directorName){
+        return movieRepository.getDirectorByName(directorName);
+    }
+
+    public List<String> getMoviesByDirectorName(String directorName){
+        return movieRepository.getMoviesByDirectorName(directorName);
+    }
 }
