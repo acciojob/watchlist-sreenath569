@@ -51,5 +51,22 @@ public class MovieController {
         return new ResponseEntity<>(moviesList, HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-movies")
+    public ResponseEntity<List<String>> findAllMovies(){
+        List<String> moviesList = movieService.findAllMovies();
+        return new ResponseEntity<>(moviesList, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/delete-director-by-name")
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam("directorName") String directorName){
+
+        movieService.deleteDirectorByName(directorName);
+        return new ResponseEntity<>(directorName+" removed successfully", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete-all-directors")
+    public ResponseEntity<String> deleteAllDirectors(){
+        movieService.deleteAllDirectors();
+        return new ResponseEntity<>("removed all directors and their movies successfully", HttpStatus.CREATED);
+    }
 }

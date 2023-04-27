@@ -38,4 +38,28 @@ public class MovieService {
     public List<String> getMoviesByDirectorName(String directorName){
         return movieRepository.getMoviesByDirectorName(directorName);
     }
+
+    public List<String> findAllMovies(){
+        return movieRepository.findAllMovies();
+    }
+
+    public void deleteDirectorByName(String directorName){
+
+        List<String> moviesToDelete = movieRepository.getMoviesByDirectorName(directorName);
+        movieRepository.removeDirectorFromDirectorMap(directorName);
+        movieRepository.removeDirectorFromMovieDirectorMap(directorName);
+
+        for(String movie : moviesToDelete){
+            movieRepository.removeMovie(movie);
+        }
+    }
+
+    public void deleteAllDirectors(){
+        List<String> directorsToDelete = movieRepository.getAllDirectors();
+        for(String director : directorsToDelete){
+            deleteDirectorByName(director);
+        }
+
+
+    }
 }

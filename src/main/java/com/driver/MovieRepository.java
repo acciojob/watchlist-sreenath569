@@ -43,6 +43,26 @@ public class MovieRepository {
         return movieDirectorMap.get(directorName);
     }
 
+    public List<String> findAllMovies(){
+        List<String> moviesList = new ArrayList<>(movieMap.keySet());
+        return moviesList;
+    }
+
+    public void removeDirectorFromDirectorMap(String directorName){
+        directorMap.remove(directorName);
+    }
+
+    public void removeDirectorFromMovieDirectorMap(String directorName){
+        movieDirectorMap.remove(directorName);
+    }
+
+    public void removeMovie(String movieName){
+        movieMap.remove(movieName);
+    }
+
+    public List<String> getAllDirectors(){
+        return new ArrayList<>(directorMap.keySet());
+    }
     public boolean isMoviePresent(String movieName){
         return movieMap.containsKey(movieName);
     }
